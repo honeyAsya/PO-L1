@@ -1,14 +1,14 @@
 .gradle
 build/
-!oolab/gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### IntelliJ IDEA ###
-oolab/.idea/modules.xml
-oolab/.idea/jarRepositories.xml
-oolab/.idea/compiler.xml
-oolab/.idea/libraries/
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
 *.iws
 *.iml
 *.ipr
