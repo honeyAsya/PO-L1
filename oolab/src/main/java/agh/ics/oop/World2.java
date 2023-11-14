@@ -1,10 +1,13 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
+
+import java.util.List;
 
 public class World2 {
 
-    public static void run(MoveDirection[] moves) {
+    public static void run(List<MoveDirection> moves) {
         for (MoveDirection move : moves) {
             if (move != null) {
                 switch (move) {
@@ -33,6 +36,14 @@ public class World2 {
         System.out.println("Start");
         run(OptionsParser.parseOptions(args));
         System.out.println("Stop");
+
+        Animal szajluszaj = new Animal();
+        System.out.println(szajluszaj);
+
+        List<MoveDirection> directions = OptionsParser.parseOptions(args);
+        List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));
+        Simulation simulation = new Simulation(positions, directions);
+        simulation.run();
 
     }
 }
