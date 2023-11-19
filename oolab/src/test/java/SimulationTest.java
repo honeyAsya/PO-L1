@@ -1,4 +1,5 @@
-import agh.ics.oop.Vector2d;
+import agh.ics.oop.model.RectangularMap;
+import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import org.junit.jupiter.api.Assertions;
@@ -18,9 +19,10 @@ public class SimulationTest {
     public void checkMoveOrientationTest() {
         //given
         Animal animal = new Animal();
+        RectangularMap rectangularMap = new RectangularMap(4,4);
         //when
-        animal.move(MoveDirection.LEFT);
-        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.LEFT, rectangularMap);
+        animal.move(MoveDirection.FORWARD, rectangularMap);
         //then
         Assertions.assertTrue(animal.isAt(new Vector2d(1,2)));
     }
@@ -28,20 +30,19 @@ public class SimulationTest {
     @Test
     public void checkBorderOrientationTest() {
         //given
+        RectangularMap rectangularMap = new RectangularMap(4,0);
         Animal animalMaxX = new Animal(new Vector2d(4,2));
         Animal animalMaxY = new Animal(new Vector2d(2,4));
         Animal animalMinX = new Animal(new Vector2d(0,2));
         Animal animalMinY = new Animal(new Vector2d(2,0));
         //when
-        animalMaxY.move(MoveDirection.FORWARD);
+        animalMaxY.move(MoveDirection.FORWARD, rectangularMap);
 
-        animalMaxX.move(MoveDirection.RIGHT);
-        animalMaxX.move(MoveDirection.FORWARD);
-
-        animalMinY.move(MoveDirection.BACKWARD);
-
-        animalMinX.move(MoveDirection.LEFT);
-        animalMinX.move(MoveDirection.FORWARD);
+        animalMaxX.move(MoveDirection.RIGHT, rectangularMap);
+        animalMaxX.move(MoveDirection.FORWARD, rectangularMap);
+        animalMinY.move(MoveDirection.BACKWARD, rectangularMap);
+        animalMinX.move(MoveDirection.LEFT, rectangularMap);
+        animalMinX.move(MoveDirection.FORWARD, rectangularMap);
 
         //then
         Assertions.assertTrue(animalMaxX.isAt(new Vector2d(4,2)));

@@ -1,11 +1,26 @@
 package agh.ics.oop.model;
 
 import agh.ics.oop.MapDirection;
-import agh.ics.oop.Vector2d;
 
 public class Animal {
     private MapDirection mapDirection;
     private Vector2d mapCoordinates;
+
+    public void setMapDirection(MapDirection mapDirection) {
+        this.mapDirection = mapDirection;
+    }
+
+    public void setMapCoordinates(Vector2d mapCoordinates) {
+        this.mapCoordinates = mapCoordinates;
+    }
+
+    public MapDirection getMapDirection() {
+        return mapDirection;
+    }
+
+    public Vector2d getMapCoordinates() {
+        return mapCoordinates;
+    }
 
     public Animal() {
         this.mapDirection = MapDirection.NORTH;
@@ -19,64 +34,27 @@ public class Animal {
 
     @Override
     public String toString() {
-        return this.mapCoordinates.toString() + " : " + this.mapDirection.name();
+        return this.mapCoordinates.toString() + " : " + this.mapDirection.name().charAt(0);
     }
 
     public boolean isAt(Vector2d position) {
         return this.mapCoordinates.equals(position);
     }
 
-    public void move(MoveDirection direction) {
+    public void move(MoveDirection direction, MoveValidator moveValidator) {
         switch (direction) {
             case LEFT -> this.mapDirection = this.mapDirection.previous();
             case RIGHT -> this.mapDirection = this.mapDirection.next();
             case FORWARD -> {
-                switch (this.mapDirection) {
-                    case NORTH -> {
-                        if (this.mapCoordinates.getY() < 4) {
-                            this.mapCoordinates = this.mapCoordinates.add(this.mapDirection.toUnitVector());
-                        }
-                    }
-                    case EAST -> {
-                        if (this.mapCoordinates.getX() < 4) {
-                            this.mapCoordinates = this.mapCoordinates.add(this.mapDirection.toUnitVector());
-                        }
-                    }
-                    case WEST -> {
-                        if (this.mapCoordinates.getX() > 0) {
-                            this.mapCoordinates = this.mapCoordinates.add(this.mapDirection.toUnitVector());
-                        }
-                    }
-                    case SOUTH -> {
-                        if (this.mapCoordinates.getY() > 0) {
-                            this.mapCoordinates = this.mapCoordinates.add(this.mapDirection.toUnitVector());
-                        }
-                    }
-
+                if (moveValidator.canMoveTo(this.mapCoordinates.add(this.mapDirection.toUnitVector())))
+                {
+                    setMapCoordinates(this.mapCoordinates.add(this.mapDirection.toUnitVector()));
                 }
             }
             case BACKWARD -> {
-                switch (this.mapDirection) {
-                    case NORTH -> {
-                        if (this.mapCoordinates.getY() > 0) {
-                            this.mapCoordinates = this.mapCoordinates.substract(this.mapDirection.toUnitVector());
-                        }
-                    }
-                    case EAST -> {
-                        if (this.mapCoordinates.getX() > 0) {
-                            this.mapCoordinates = this.mapCoordinates.substract(this.mapDirection.toUnitVector());
-                        }
-                    }
-                    case WEST -> {
-                        if (this.mapCoordinates.getX() < 4) {
-                            this.mapCoordinates = this.mapCoordinates.substract(this.mapDirection.toUnitVector());
-                        }
-                    }
-                    case SOUTH -> {
-                        if (this.mapCoordinates.getY() < 4) {
-                            this.mapCoordinates = this.mapCoordinates.substract(this.mapDirection.toUnitVector());
-                        }
-                    }
+                if (moveValidator.canMoveTo(this.mapCoordinates.substract(this.mapDirection.toUnitVector())))
+                {
+                    setMapCoordinates(this.mapCoordinates.substract(this.mapDirection.toUnitVector()));
                 }
             }
         }
