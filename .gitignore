@@ -11,7 +11,7 @@ oolab/.idea/compiler.xml
 oolab/.idea/libraries/
 oolab/.idea/
 .idea/
-*.bat
+oolab/*.bat
 *.iws
 *.iml
 *.ipr
