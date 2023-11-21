@@ -11,9 +11,9 @@ public class Simulation {
     List<Animal> animalList;
     List<MoveDirection> moves;
 
-    WorldMap worldMap;
+    WorldMap<Animal,Vector2d> worldMap;
 
-    public Simulation(List<Vector2d> vectors, List<MoveDirection> moves, WorldMap worldMap) {
+    public Simulation(List<Vector2d> vectors, List<MoveDirection> moves, WorldMap<Animal, Vector2d> worldMap) {
         this.animalList = vectors.stream()
                 .map(Animal::new)
                 .toList();

@@ -1,13 +1,10 @@
-package agh.ics.oop;
-
-import agh.ics.oop.model.Vector2d;
+package agh.ics.oop.model;
 
 public enum MapDirection {
-    EAST("Wschód", "SOUTH", "NORTH", new Vector2d(1,0)),
-    NORTH("Północ", "EAST", "WEST", new Vector2d(0,1)),
-    WEST("Zachód", "NORTH", "SOUTH", new Vector2d(-1,0)),
-    SOUTH("Południe", "WEST", "EAST", new Vector2d(0,-1));
-
+    EAST("Wschód", "SOUTH", "NORTH", new Vector2d(1, 0)),
+    NORTH("Północ", "EAST", "WEST", new Vector2d(0, 1)),
+    WEST("Zachód", "NORTH", "SOUTH", new Vector2d(-1, 0)),
+    SOUTH("Południe", "WEST", "EAST", new Vector2d(0, -1));
 
 
     private final String name;
@@ -29,15 +26,15 @@ public enum MapDirection {
         return name;
     }
 
-    public MapDirection next(){
+    public MapDirection next() {
         return MapDirection.valueOf(this.nextDirection);
     }
 
-    public MapDirection previous(){
+    public MapDirection previous() {
         return MapDirection.valueOf(this.previousDirection);
     }
 
-    public Vector2d toUnitVector(){
+    public Vector2d toUnitVector() {
         return this.coords;
     }
 }

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class RectangularMap implements WorldMap {
+public class RectangularMap implements WorldMap<Animal,Vector2d> {
     Map<Vector2d, Animal> animals = new HashMap<>();
 
     int width;

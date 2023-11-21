@@ -1,4 +1,4 @@
-import agh.ics.oop.MapDirection;
+import agh.ics.oop.model.MapDirection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 public class MapDirectionTest {

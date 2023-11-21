@@ -1,7 +1,5 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.MapDirection;
-
 public class Animal {
     private MapDirection mapDirection;
     private Vector2d mapCoordinates;
@@ -46,14 +44,12 @@ public class Animal {
             case LEFT -> this.mapDirection = this.mapDirection.previous();
             case RIGHT -> this.mapDirection = this.mapDirection.next();
             case FORWARD -> {
-                if (moveValidator.canMoveTo(this.mapCoordinates.add(this.mapDirection.toUnitVector())))
-                {
+                if (moveValidator.canMoveTo(this.mapCoordinates.add(this.mapDirection.toUnitVector()))) {
                     setMapCoordinates(this.mapCoordinates.add(this.mapDirection.toUnitVector()));
                 }
             }
             case BACKWARD -> {
-                if (moveValidator.canMoveTo(this.mapCoordinates.substract(this.mapDirection.toUnitVector())))
-                {
+                if (moveValidator.canMoveTo(this.mapCoordinates.substract(this.mapDirection.toUnitVector()))) {
                     setMapCoordinates(this.mapCoordinates.substract(this.mapDirection.toUnitVector()));
                 }
             }
