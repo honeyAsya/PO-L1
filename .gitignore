@@ -9,8 +9,8 @@ oolab/.idea/modules.xml
 oolab/.idea/jarRepositories.xml
 oolab/.idea/compiler.xml
 oolab/.idea/libraries/
-oolab/.idea/
-.idea/
+oolab/.idea/*
+.idea/*
 oolab/*.bat
 *.iws
 *.iml
