@@ -1,3 +1,5 @@
+package agh.ics.oop.model;
+
 import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.RectangularMap;
