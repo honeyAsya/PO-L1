@@ -12,6 +12,7 @@ oolab/.idea/libraries/
 oolab/.idea/*
 .idea/*
 oolab/*.bat
+oolab/gradlew
 *.iws
 *.iml
 *.ipr
