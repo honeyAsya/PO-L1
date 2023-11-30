@@ -1,3 +1,5 @@
+package agh.ics.oop.integration;
+
 import agh.ics.oop.model.RectangularMap;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.Animal;

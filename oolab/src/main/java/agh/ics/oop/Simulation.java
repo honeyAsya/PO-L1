@@ -29,5 +29,6 @@ public class Simulation {
             Animal animal = animalList.get(animalIndex);
             System.out.println("Zwierzę " + animalIndex + " : " + animal.toString());
         }
+        System.out.println(this.worldMap.toString());
     }
 }

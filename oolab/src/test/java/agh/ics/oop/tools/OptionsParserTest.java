@@ -1,3 +1,4 @@
+package agh.ics.oop.tools;
 
 import agh.ics.oop.OptionsParser;
 import agh.ics.oop.model.MoveDirection;

@@ -2,7 +2,9 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.MapDirection;
 
-public class Animal {
+import java.util.Objects;
+
+public class Animal implements WorldElement {
     private MapDirection mapDirection;
     private Vector2d mapCoordinates;
 
@@ -34,7 +36,7 @@ public class Animal {
 
     @Override
     public String toString() {
-        return this.mapCoordinates.toString() + " : " + this.mapDirection.name().charAt(0);
+        return "^";
     }
 
     public boolean isAt(Vector2d position) {
@@ -58,5 +60,23 @@ public class Animal {
                 }
             }
         }
+    }
+
+    @Override
+    public Vector2d getPosition() {
+        return mapCoordinates;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return mapDirection == animal.mapDirection && Objects.equals(mapCoordinates, animal.mapCoordinates);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mapDirection, mapCoordinates);
     }
 }

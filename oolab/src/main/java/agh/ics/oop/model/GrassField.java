@@ -1,31 +1,47 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
 
-public class RectangularMap extends AbstractWorldMap implements WorldMap {
+import static java.lang.Math.sqrt;
 
-    int width;
-    int height;
+public class GrassField extends AbstractWorldMap implements WorldMap{
 
+    public GrassField(int grassCount) {
+        IntStream.range(0, grassCount)
+                .forEach(ind -> {
+                    boolean placed = false;
+                    do {
+                        int x = (int) (Math.random() * sqrt(grassCount * 10));
+                        int y = (int) (Math.random() * sqrt(grassCount * 10));
+                        Vector2d positionToPlace = new Vector2d(x, y);
+                        if (!getGrassMap().containsKey(positionToPlace)) {
+                            getGrassMap().put(positionToPlace, new Grass(positionToPlace));
+                            placed = true;
+                        }
+                    } while (!placed);
+                });
 
-    public RectangularMap(int width, int height) {
-        this.width = width;
-        this.height = height;
     }
-
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return !isOccupied(position) &&
-                (position.getY() <= height) &&
-                (position.getX() <= width) &&
-                (position.getY() >= (-height)) &&
-                (position.getX() >= (-width));
+        return !isOccupied(position);
+    }
+
+    @Override
+    public WorldElement objectAt(Vector2d position) {
+      return super.objectAt(position);
     }
 
     @Override
     public boolean place(WorldElement element) {
-        return super.place(element);
+       return super.place(element);
     }
 
     @Override
@@ -35,20 +51,16 @@ public class RectangularMap extends AbstractWorldMap implements WorldMap {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        return super.isOccupied(position);
-    }
-
-    @Override
-    public WorldElement objectAt(Vector2d position) {
-        return super.objectAt(position);
+       return super.isOccupied(position);
     }
 
     @Override
     public String toString() {
+
         int maxX = 0;
         int maxY = 0;
 
-        int minX = 0;
+        int minX =0;
         int minY = 0;
 
         for (Vector2d position : animalsMap.keySet()) {
@@ -70,4 +82,5 @@ public class RectangularMap extends AbstractWorldMap implements WorldMap {
         Vector2d upperRight = new Vector2d(maxX, maxY);
         return visualizer.draw(lowerLeft, upperRight);
     }
+
 }
