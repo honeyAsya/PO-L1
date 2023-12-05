@@ -22,7 +22,7 @@ public class OptionsParser {
                 case "l":
                     movesArray.add(MoveDirection.LEFT);
                     break;
-                default: break;
+                default: throw new IllegalArgumentException(option + " is not legal move specification");
             }
         }
         return movesArray;

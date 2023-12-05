@@ -1,6 +1,7 @@
 package agh.ics.oop.model;
 
 
+import agh.ics.oop.exception.PositionAlreadyOccupiedException;
 
 public class RectangularMap extends AbstractWorldMap implements WorldMap {
 
@@ -25,7 +26,12 @@ public class RectangularMap extends AbstractWorldMap implements WorldMap {
 
     @Override
     public boolean place(WorldElement element) {
+        try{
         return super.place(element);
+    } catch (PositionAlreadyOccupiedException e) {
+        System.out.println("Error while adding: " + e.getMessage());
+    }
+        return false;
     }
 
     @Override
@@ -39,12 +45,7 @@ public class RectangularMap extends AbstractWorldMap implements WorldMap {
     }
 
     @Override
-    public WorldElement objectAt(Vector2d position) {
-        return super.objectAt(position);
-    }
-
-    @Override
-    public String toString() {
+    Boundary getCurrentBounds() {
         int maxX = 0;
         int maxY = 0;
 
@@ -65,9 +66,14 @@ public class RectangularMap extends AbstractWorldMap implements WorldMap {
             minY = Math.min(minY, position.getY());
         }
 
-        MapVisualizer visualizer = new MapVisualizer(this);
         Vector2d lowerLeft = new Vector2d(0, 0);
         Vector2d upperRight = new Vector2d(maxX, maxY);
-        return visualizer.draw(lowerLeft, upperRight);
+        return new Boundary(upperRight, lowerLeft);
     }
+
+    @Override
+    public WorldElement objectAt(Vector2d position) {
+        return super.objectAt(position);
+    }
+
 }

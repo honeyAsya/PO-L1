@@ -3,6 +3,8 @@ package agh.ics.oop.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class AbstractWorldMapTest {
     @Test
     public void checkCorrectPlaceAnimalsOnDifferentPlacesOnRectangularMap(){
@@ -10,18 +12,22 @@ public class AbstractWorldMapTest {
         AbstractWorldMap sandbox = new RectangularMap(10,10);
         Animal rabbit = new Animal();
         Animal wolf = new Animal(new Vector2d(2, 3));
-
+        AtomicBoolean insertedRabbit = new AtomicBoolean();
+        AtomicBoolean insertedWolf = new AtomicBoolean();
         //when
-        boolean insertedRabbit  = sandbox.place(rabbit);
+
+        Assertions.assertDoesNotThrow(() -> insertedRabbit.set(sandbox.place(rabbit)));
+
         sandbox.move(rabbit, MoveDirection.FORWARD, (MoveValidator) sandbox);
         sandbox.move(rabbit, MoveDirection.FORWARD, (MoveValidator)sandbox);
-        boolean insertedWolf = sandbox.place(wolf);
+        Assertions.assertDoesNotThrow(() -> insertedWolf.set(sandbox.place(wolf)));
 
         //then
-        Assertions.assertTrue(insertedRabbit);
-        Assertions.assertTrue(insertedWolf);
+        Assertions.assertTrue(insertedRabbit.get());
+        Assertions.assertTrue(insertedWolf.get());
         Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,4)), rabbit);
         Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)), wolf);
+
     }
 
     @Test
@@ -30,16 +36,19 @@ public class AbstractWorldMapTest {
         AbstractWorldMap sandbox = new GrassField(11);
         Animal rabbit = new Animal();
         Animal wolf = new Animal(new Vector2d(2, 3));
-
+        AtomicBoolean insertedRabbit = new AtomicBoolean();
+        AtomicBoolean insertedWolf = new AtomicBoolean();
         //when
-        boolean insertedRabbit  = sandbox.place(rabbit);
+
+        Assertions.assertDoesNotThrow(() -> insertedRabbit.set(sandbox.place(rabbit)));
+
         sandbox.move(rabbit, MoveDirection.FORWARD, (MoveValidator) sandbox);
         sandbox.move(rabbit, MoveDirection.FORWARD, (MoveValidator)sandbox);
-        boolean insertedWolf = sandbox.place(wolf);
+        Assertions.assertDoesNotThrow(() -> insertedWolf.set(sandbox.place(wolf)));
 
         //then
-        Assertions.assertTrue(insertedRabbit);
-        Assertions.assertTrue(insertedWolf);
+        Assertions.assertTrue(insertedRabbit.get());
+        Assertions.assertTrue(insertedWolf.get());
         Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,4)), rabbit);
         Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)), wolf);
     }

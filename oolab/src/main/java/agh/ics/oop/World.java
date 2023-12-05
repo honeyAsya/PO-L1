@@ -45,10 +45,11 @@ public class World {
         Animal animal7 = new Animal(new Vector2d(3,8));
 
         System.out.println(szajluszaj);
-
+        ConsoleMapDisplay consoleMapDisplay = new ConsoleMapDisplay();
         List<MoveDirection> directions = OptionsParser.parseOptions(args);
         List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));
         GrassField grassWorld =  new GrassField(10);
+        grassWorld.addObservator(consoleMapDisplay);
         grassWorld.place(szajluszaj);
         grassWorld.place(animal2);
         grassWorld.place(animal3);

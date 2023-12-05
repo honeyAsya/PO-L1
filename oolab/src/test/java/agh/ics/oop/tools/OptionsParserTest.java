@@ -15,11 +15,8 @@ public class OptionsParserTest {
         //given
         String[] testCodes = {"f", "r", "b", "l", "2"};
         List<MoveDirection> resultEnums = List.of(MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.LEFT);
-        //when
-        List<MoveDirection> convertedEnums = OptionsParser.parseOptions(testCodes);
         //then
-        Assertions.assertEquals(4, convertedEnums.size());
-        Assertions.assertEquals(resultEnums, convertedEnums);
+        Assertions.assertThrows(IllegalArgumentException.class, () ->OptionsParser.parseOptions(testCodes));
     }
 
     @Test
@@ -48,4 +45,5 @@ public class OptionsParserTest {
         Assertions.assertEquals(16, convertedEnums.size());
         Assertions.assertEquals(resultEnums, convertedEnums);
     }
+
 }

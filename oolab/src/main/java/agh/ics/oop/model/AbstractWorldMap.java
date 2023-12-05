@@ -1,14 +1,34 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.exception.PositionAlreadyOccupiedException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractWorldMap {
+public abstract class AbstractWorldMap implements WorldMap {
+   abstract Boundary getCurrentBounds();
+
+   public static final String ANIMAL_PLACED = "Dodano zwierzęcie";
+    public static final String ANIMAL_MOVED = "Zmieniono pozycje zwierzęcia";
+
+  public void addObservator(MapChangeListener mapChangeListener){
+      listeners.add(mapChangeListener);
+   }
+
+  public void removeObservator(MapChangeListener mapChangeListener){
+       listeners.remove(mapChangeListener);
+   }
+
+   void mapChanged(String message) {
+      listeners
+              .stream().forEach(listener -> listener.mapChanged(this, message));
+   }
 
     Map<Vector2d, Grass> grassMap = new HashMap<>();
     Map<Vector2d, Animal> animalsMap = new HashMap<>();
+    List<MapChangeListener> listeners = new ArrayList<>();
 
     public Map<Vector2d, Grass> getGrassMap() {
         return grassMap;
@@ -33,19 +53,21 @@ public abstract class AbstractWorldMap {
         return null;
     }
 
-    public boolean place(WorldElement element) {
+    public boolean place(WorldElement element) throws PositionAlreadyOccupiedException {
         if (element instanceof Animal) {
             if (!animalsMap.containsKey(element.getPosition())) {
                 this.animalsMap.put(element.getPosition(), (Animal) element);
+                mapChanged(ANIMAL_PLACED);
                 return true;
             }
         }
         if (element instanceof Grass) {
             grassMap.put(element.getPosition(), (Grass) element);
+            mapChanged(ANIMAL_PLACED);
             return true;
 
         }
-        return false;
+        throw new PositionAlreadyOccupiedException(element.getPosition());
     }
 
     public void move(WorldElement worldElement, MoveDirection direction, MoveValidator moveValidator) {
@@ -53,11 +75,13 @@ public abstract class AbstractWorldMap {
             animalsMap.remove(worldElement.getPosition());
             worldElement.move(direction, moveValidator);
             animalsMap.put(worldElement.getPosition(), (Animal) worldElement);
+            mapChanged(ANIMAL_MOVED);
         }
         if (worldElement instanceof Grass) {
             grassMap.remove(worldElement.getPosition());
             worldElement.move(direction, moveValidator);
             grassMap.put(worldElement.getPosition(), (Grass) worldElement);
+            mapChanged(ANIMAL_MOVED);
         }
     }
 
@@ -70,5 +94,11 @@ public abstract class AbstractWorldMap {
         elements.addAll(grassMap.values());
         elements.addAll(animalsMap.values());
         return elements;
+    }
+
+    @Override
+    public String toString() {
+        MapVisualizer mapVisualizer = new MapVisualizer(this);
+        return mapVisualizer.draw(getCurrentBounds().lowLeft(), getCurrentBounds().highRight());
     }
 }
