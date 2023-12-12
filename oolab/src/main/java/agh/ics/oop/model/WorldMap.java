@@ -12,6 +12,7 @@ import java.util.List;
  * @author apohllo, idzik
  */
 public interface WorldMap extends MoveValidator {
+    Object getId();
 
     WorldElement objectAt(Vector2d position);
 

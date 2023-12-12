@@ -7,7 +7,7 @@ import agh.ics.oop.model.WorldMap;
 
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable {
     List<Animal> animalList;
     List<MoveDirection> moves;
 
@@ -22,6 +22,7 @@ public class Simulation {
 
     }
 
+    @Override
     public void run() {
         for (int moveIndex = 0; moveIndex < moves.size(); moveIndex++) {
             int animalIndex = moveIndex % animalList.size();

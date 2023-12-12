@@ -2,11 +2,13 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.exception.PositionAlreadyOccupiedException;
 
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 import static java.lang.Math.sqrt;
 
 public class GrassField extends AbstractWorldMap implements WorldMap{
+    private UUID id;
 
     public GrassField(int grassCount) {
         IntStream.range(0, grassCount)
@@ -22,7 +24,12 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
                         }
                     } while (!placed);
                 });
+        this.id = UUID.randomUUID();
+    }
 
+    @Override
+    public Object getId(){
+        return id;
     }
 
     @Override

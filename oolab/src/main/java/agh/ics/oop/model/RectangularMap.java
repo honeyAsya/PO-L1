@@ -3,15 +3,24 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.exception.PositionAlreadyOccupiedException;
 
+import java.util.UUID;
+
 public class RectangularMap extends AbstractWorldMap implements WorldMap {
 
     int width;
     int height;
+    private UUID id;
 
 
     public RectangularMap(int width, int height) {
         this.width = width;
         this.height = height;
+        this.id = UUID.randomUUID();
+    }
+
+    @Override
+    public Object getId(){
+        return id;
     }
 
 
