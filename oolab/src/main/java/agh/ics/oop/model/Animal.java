@@ -36,7 +36,12 @@ public class Animal implements WorldElement {
 
     @Override
     public String toString() {
-        return "^";
+       return switch (mapDirection){
+           case NORTH -> "^";
+           case WEST -> "<";
+           case EAST -> ">";
+           case SOUTH -> "v";
+       };
     }
 
     public boolean isAt(Vector2d position) {

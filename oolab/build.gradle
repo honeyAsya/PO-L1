@@ -1,5 +1,10 @@
 plugins {
     id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+javafx {
+    version = "17"
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
 }
 
 group = 'org.example'

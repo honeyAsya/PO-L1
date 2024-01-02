@@ -8,7 +8,32 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractWorldMap implements WorldMap {
-   abstract Boundary getCurrentBounds();
+   public Boundary getCurrentBounds(){
+       int maxX = 0;
+       int maxY = 0;
+
+       int minX =0;
+       int minY = 0;
+
+       for (Vector2d position : animalsMap.keySet()) {
+           maxX = Math.max(maxX, position.getX());
+           maxY = Math.max(maxY, position.getY());
+           minX = Math.min(minX, position.getX());
+           minY = Math.min(minY, position.getY());
+       }
+
+       for (Vector2d position : grassMap.keySet()) {
+           maxX = Math.max(maxX, position.getX());
+           maxY = Math.max(maxY, position.getY());
+           minX = Math.min(minX, position.getX());
+           minY = Math.min(minY, position.getY());
+       }
+
+
+       Vector2d lowerLeft = new Vector2d(0, 0);
+       Vector2d upperRight = new Vector2d(maxX, maxY);
+       return new Boundary(upperRight, lowerLeft);
+   }
 
    public static final String ANIMAL_PLACED = "Dodano zwierzęcie";
     public static final String ANIMAL_MOVED = "Zmieniono pozycje zwierzęcia";
@@ -77,12 +102,7 @@ public abstract class AbstractWorldMap implements WorldMap {
             animalsMap.put(worldElement.getPosition(), (Animal) worldElement);
             mapChanged(ANIMAL_MOVED);
         }
-        if (worldElement instanceof Grass) {
-            grassMap.remove(worldElement.getPosition());
-            worldElement.move(direction, moveValidator);
-            grassMap.put(worldElement.getPosition(), (Grass) worldElement);
-            mapChanged(ANIMAL_MOVED);
-        }
+
     }
 
     public boolean isOccupied(Vector2d position) {

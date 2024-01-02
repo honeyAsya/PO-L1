@@ -1,11 +1,9 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
-import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.*;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Simulation implements Runnable {
     List<Animal> animalList;
@@ -15,7 +13,11 @@ public class Simulation implements Runnable {
 
     public Simulation(List<Vector2d> vectors, List<MoveDirection> moves, WorldMap worldMap) {
         this.animalList = vectors.stream()
-                .map(Animal::new)
+                .map(vec -> {
+                    WorldElement worldElement = worldMap.objectAt(vec);
+                    return worldElement instanceof Animal ? (Animal) worldElement : null;
+                })
+                .filter(Objects::nonNull)
                 .toList();
         this.worldMap = worldMap;
         this.moves = moves;
@@ -26,8 +28,9 @@ public class Simulation implements Runnable {
     public void run() {
         for (int moveIndex = 0; moveIndex < moves.size(); moveIndex++) {
             int animalIndex = moveIndex % animalList.size();
-            animalList.get(animalIndex).move(moves.get(moveIndex), worldMap);
             Animal animal = animalList.get(animalIndex);
+            worldMap.move(animal, moves.get(moveIndex));
+            //animalList.get(animalIndex).move(moves.get(moveIndex), worldMap);
             System.out.println("Zwierzę " + animalIndex + " : " + animal.toString());
         }
     }

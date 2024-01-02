@@ -14,6 +14,8 @@ import java.util.List;
 public interface WorldMap extends MoveValidator {
     Object getId();
 
+    Boundary getCurrentBounds();
+
     WorldElement objectAt(Vector2d position);
 
     /**

@@ -54,7 +54,7 @@ public class RectangularMap extends AbstractWorldMap implements WorldMap {
     }
 
     @Override
-    Boundary getCurrentBounds() {
+    public Boundary getCurrentBounds() {
         int maxX = 0;
         int maxY = 0;
 
