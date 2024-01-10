@@ -47,7 +47,7 @@ public class AnimalTest {
         Animal animal = new Animal();
 
         //then
-        assertEquals("^", animal.toString());
+        assertEquals("(2,2)", animal.toString());
     }
 
 }

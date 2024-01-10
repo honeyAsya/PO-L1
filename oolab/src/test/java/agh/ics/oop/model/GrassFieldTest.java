@@ -27,7 +27,7 @@ public class GrassFieldTest {
         //then
         Assertions.assertTrue(insertedRabbit);
         Assertions.assertFalse(insertedWolf);
-        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)), rabbit);
+        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)).get(), rabbit);
     }
 
     @Test
@@ -51,8 +51,8 @@ public class GrassFieldTest {
         Assertions.assertTrue(insertedWolf);
         Assertions.assertEquals(rabbitInSandbox, rabbit);
         Assertions.assertEquals(wolfInSandbox, wolf);
-        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,4)), rabbit);
-        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,5)), wolf);
+        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,4)).get(), rabbit);
+        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,5)).get(), wolf);
     }
 
     @Test
@@ -75,6 +75,6 @@ public class GrassFieldTest {
         Assertions.assertTrue(insertedWolf);
         Assertions.assertEquals(rabbitInSandbox, rabbit);
         Assertions.assertEquals(wolfInSandbox, wolf);
-        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)), rabbit);
+        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)).get(), rabbit);
     }
 }

@@ -25,8 +25,8 @@ public class AbstractWorldMapTest {
         //then
         Assertions.assertTrue(insertedRabbit.get());
         Assertions.assertTrue(insertedWolf.get());
-        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,4)), rabbit);
-        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)), wolf);
+        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,4)).get(), rabbit);
+        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)).get(), wolf);
 
     }
 
@@ -49,7 +49,7 @@ public class AbstractWorldMapTest {
         //then
         Assertions.assertTrue(insertedRabbit.get());
         Assertions.assertTrue(insertedWolf.get());
-        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,4)), rabbit);
-        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)), wolf);
+        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,4)).get(), rabbit);
+        Assertions.assertEquals(sandbox.objectAt(new Vector2d(2,3)).get(), wolf);
     }
 }

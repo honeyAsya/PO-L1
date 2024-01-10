@@ -48,7 +48,7 @@ public class GrassTest {
         Grass grass = new Grass(new Vector2d(2,2));
 
         //then
-        assertEquals("*", grass.toString());
+        assertEquals("Grass", grass.toString());
     }
 
 }
