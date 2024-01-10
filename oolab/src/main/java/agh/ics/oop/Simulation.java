@@ -13,10 +13,7 @@ public class Simulation implements Runnable {
 
     public Simulation(List<Vector2d> vectors, List<MoveDirection> moves, WorldMap worldMap) {
         this.animalList = vectors.stream()
-                .map(vec -> {
-                    WorldElement worldElement = worldMap.objectAt(vec);
-                    return worldElement instanceof Animal ? (Animal) worldElement : null;
-                })
+                .map(vec -> (Animal) worldMap.objectAt(vec).filter(Animal.class::isInstance).orElse(null))
                 .filter(Objects::nonNull)
                 .toList();
         this.worldMap = worldMap;

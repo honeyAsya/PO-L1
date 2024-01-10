@@ -2,10 +2,9 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.exception.PositionAlreadyOccupiedException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class AbstractWorldMap implements WorldMap {
    public Boundary getCurrentBounds(){
@@ -71,11 +70,10 @@ public abstract class AbstractWorldMap implements WorldMap {
         this.animalsMap = animalsMap;
     }
 
-    public WorldElement objectAt(Vector2d position) {
-        if (animalsMap.containsKey(position)) return animalsMap.get(position);
-        if (grassMap.containsKey(position)) return grassMap.get(position);
-
-        return null;
+    public Optional<WorldElement> objectAt(Vector2d position) {
+        if (animalsMap.containsKey(position)) return Optional.of(animalsMap.get(position));
+        if (grassMap.containsKey(position)) return Optional.of(grassMap.get(position));
+        return Optional.empty();
     }
 
     public boolean place(WorldElement element) throws PositionAlreadyOccupiedException {
@@ -110,15 +108,23 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
     public List<WorldElement> getElements() {
-        List<WorldElement> elements = new ArrayList<>();
-        elements.addAll(grassMap.values());
-        elements.addAll(animalsMap.values());
-        return elements;
+       return Stream.concat(grassMap.values().stream(), animalsMap.values().stream()).collect(Collectors.toList());
     }
 
     @Override
     public String toString() {
         MapVisualizer mapVisualizer = new MapVisualizer(this);
         return mapVisualizer.draw(getCurrentBounds().lowLeft(), getCurrentBounds().highRight());
+    }
+
+    @Override
+    public List<Animal> getOrderedAnimals() {
+        return animalsMap.entrySet()
+                .stream()
+                .sorted(Comparator.comparing((Map.Entry<Vector2d, Animal> v) -> v.getKey().getX())
+                        .thenComparing((Map.Entry<Vector2d, Animal> v) ->  v.getKey().getY()))
+                .map(Map.Entry::getValue)
+                .toList();
+
     }
 }

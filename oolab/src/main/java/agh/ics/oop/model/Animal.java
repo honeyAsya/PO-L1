@@ -4,6 +4,8 @@ import agh.ics.oop.MapDirection;
 
 import java.util.Objects;
 
+import static agh.ics.oop.MapDirection.EAST;
+
 public class Animal implements WorldElement {
     private MapDirection mapDirection;
     private Vector2d mapCoordinates;
@@ -36,12 +38,7 @@ public class Animal implements WorldElement {
 
     @Override
     public String toString() {
-       return switch (mapDirection){
-           case NORTH -> "^";
-           case WEST -> "<";
-           case EAST -> ">";
-           case SOUTH -> "v";
-       };
+      return getPosition().toString();
     }
 
     public boolean isAt(Vector2d position) {
@@ -70,6 +67,16 @@ public class Animal implements WorldElement {
     @Override
     public Vector2d getPosition() {
         return mapCoordinates;
+    }
+
+    @Override
+    public String getElementImageName() {
+       return switch (mapDirection){
+            case EAST -> "right.png";
+            case WEST -> "left.png";
+            case SOUTH -> "down.png";
+            case NORTH -> "up.png" ;
+        };
     }
 
     @Override

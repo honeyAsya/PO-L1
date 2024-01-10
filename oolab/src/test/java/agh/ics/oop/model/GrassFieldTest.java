@@ -41,8 +41,8 @@ public class GrassFieldTest {
         boolean insertedRabbit  = sandbox.place(rabbit);
         boolean insertedWolf = sandbox.place(wolf);
 
-        Animal rabbitInSandbox = (Animal) sandbox.objectAt(new Vector2d(2,3));
-        Animal wolfInSandbox = (Animal) sandbox.objectAt(new Vector2d(2,4));
+        Animal rabbitInSandbox = (Animal) sandbox.objectAt(new Vector2d(2,3)).get();
+        Animal wolfInSandbox = (Animal) sandbox.objectAt(new Vector2d(2,4)).get();
         sandbox.move(wolf, MoveDirection.FORWARD);
         sandbox.move(rabbit, MoveDirection.FORWARD);
 
@@ -66,8 +66,8 @@ public class GrassFieldTest {
         boolean insertedRabbit  = sandbox.place(rabbit);
         boolean insertedWolf = sandbox.place(wolf);
 
-        Animal rabbitInSandbox = (Animal)sandbox.objectAt(new Vector2d(2,3));
-        Animal wolfInSandbox = (Animal)sandbox.objectAt(new Vector2d(2,4));
+        Animal rabbitInSandbox = (Animal)sandbox.objectAt(new Vector2d(2,3)).get();
+        Animal wolfInSandbox = (Animal)sandbox.objectAt(new Vector2d(2,4)).get();
 
         sandbox.move(rabbit, MoveDirection.FORWARD);
         //then

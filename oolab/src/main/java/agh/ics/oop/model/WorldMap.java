@@ -4,6 +4,7 @@ package agh.ics.oop.model;
 import agh.ics.oop.exception.PositionAlreadyOccupiedException;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -16,7 +17,7 @@ public interface WorldMap extends MoveValidator {
 
     Boundary getCurrentBounds();
 
-    WorldElement objectAt(Vector2d position);
+    Optional<WorldElement> objectAt(Vector2d position);
 
     /**
      * Place a animal on the map.
@@ -43,5 +44,7 @@ public interface WorldMap extends MoveValidator {
     boolean isOccupied(Vector2d position);
 
     List<WorldElement> getElements();
+
+    List<Animal> getOrderedAnimals();
 
 }

@@ -17,6 +17,11 @@ public class Grass implements WorldElement {
         return position;
         }
 
+    @Override
+    public String getElementImageName() {
+        return "grass.jpg";
+    }
+
     public void move(MoveDirection direction, MoveValidator moveValidator) {
         switch (direction) {
             case LEFT -> {
@@ -50,7 +55,7 @@ public class Grass implements WorldElement {
 
     @Override
     public String toString(){
-        return "*";
+        return "Grass";
     }
 
     @Override

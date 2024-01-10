@@ -2,6 +2,7 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.exception.PositionAlreadyOccupiedException;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -66,7 +67,7 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
     }
 
     @Override
-    public WorldElement objectAt(Vector2d position) {
+    public Optional<WorldElement> objectAt(Vector2d position) {
       return super.objectAt(position);
     }
 

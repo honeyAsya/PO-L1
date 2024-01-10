@@ -15,6 +15,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
@@ -45,6 +47,8 @@ public class SimulationPresenter implements MapChangeListener {
     private void runSimulation() {
         GrassField grassWorld = new GrassField(10);
         grassWorld.addObservator(this);
+        grassWorld.addObservator(new FileMapDisplay());
+        grassWorld.addObservator(((worldMap1, message) -> System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")) + " " + message)));
         List<MoveDirection> directions = OptionsParser.parseOptions(textField.getText().split(" "));
         List<Animal> animals = List.of(new Animal(new Vector2d(2, 6)), new Animal(new Vector2d(3, 4)));
         List<Vector2d> positions = animals.stream().map(Animal::getPosition).toList();
@@ -86,15 +90,16 @@ public class SimulationPresenter implements MapChangeListener {
     private void fillWorldElements(Integer minX, Integer maxY) {
         worldMap.getElements()
                 .forEach(element -> {
-                    Vector2d elementPosition = worldMap.objectAt(element.getPosition()).getPosition();
+                    Vector2d elementPosition = worldMap.objectAt(element.getPosition()).get().getPosition();
 
                     int reqX = abs(minX - elementPosition.getX()) + 1;
                     int reqY = abs(maxY - elementPosition.getY()) + 1;
-                    fillCell(reqX, reqY, element.toString());
+                    WorldElementBox worldElementBox = new WorldElementBox( worldMap.objectAt(element.getPosition()).get());
+                    field.add(worldElementBox.getvElementBox(), reqX, reqY);
                 });
     }
 
-    private void fillCell(int x, int y, String text) {
+    private void fillCell(int x, int y, Object text) {
         Label label = new Label(String.valueOf(text));
         field.add(label, x, y);
         GridPane.setHalignment(label, HPos.CENTER);
